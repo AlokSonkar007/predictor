@@ -34,7 +34,7 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
             model = list(models.values())[i]
             para = param[list(models.keys())[i]]
 
-            gcv = GridSearchCV(model, para, cv=5)
+            gcv = GridSearchCV(model, para, cv=5, error_score='raise')
             gcv.fit(X_train, y_train)
 
             model.set_params(**gcv.best_params_)

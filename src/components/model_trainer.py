@@ -80,7 +80,6 @@ class ModelTrainer:
                     'max_features':[
                         'sqrt', 
                         'log2',
-                        'none'
                     ],
                     'n_estimators':[
                         8, 16, 32, 64, 128, 256
@@ -93,7 +92,7 @@ class ModelTrainer:
                         'absolute_error',
                         'quantile'
                     ],
-                    'learning rate':[
+                    'learning_rate':[
                         .1, .01, .001
                     ],
                     'subsample':[
@@ -104,7 +103,6 @@ class ModelTrainer:
                         'friedman_mse'
                     ],
                     'max_features':[
-                        'auto',
                         'sqrt',
                         'log2'
                     ],
