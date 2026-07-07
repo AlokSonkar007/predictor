@@ -76,11 +76,16 @@
             <button type="submit" class="btn">Predict Score</button>
         </form>
 
-        {% if results %}
-        <div class="result-box">
-            Predicted Math Score: <strong>{{ results }}</strong>
-        </div>
-        {% endif %}
+        <!-- This block checks for the flash message and displays it -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="result-box">
+                    {% for category, message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>
