@@ -1,1 +1,16 @@
-<h1>Welcome to the Home Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Student Exam Performance</h1>
+        <p>Predict your math score based on your profile, reading, and writing scores.</p>
+        <a href="/predictdata" class="btn">Get Started</a>
+    </div>
+</body>
+</html>
