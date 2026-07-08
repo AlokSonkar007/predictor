@@ -1,11 +1,14 @@
 import os
 import sys
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
 from src.exception import CustomException
 from src.utils import load_obj
+
+BASE_DIR = Path(__file__).resolve().parents[2]   # project root
 
 class PredictPipeline:
     def __init__(self):
