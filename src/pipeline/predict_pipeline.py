@@ -6,7 +6,7 @@ import traceback
 import numpy as np
 import pandas as pd
 
-from logger import logging
+from src.logger import logging
 from src.exception import CustomException
 from src.utils import load_obj
 import os
