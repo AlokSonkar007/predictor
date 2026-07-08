@@ -2,13 +2,14 @@ import os
 import sys
 from pathlib import Path
 
+import traceback
 import numpy as np
 import pandas as pd
 
+from logger import logging
 from src.exception import CustomException
 from src.utils import load_obj
-
-BASE_DIR = Path(__file__).resolve().parents[2]   # project root
+import os
 
 class PredictPipeline:
     def __init__(self):
@@ -16,8 +17,9 @@ class PredictPipeline:
 
     def predict(self, features):
         try:
-            model_path = 'artifacts/model.pkl'
-            preprocessor_path = 'artifacts/preprocessor.pkl'
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            model_path = os.path.join(BASE_DIR, 'artifacts', 'model.pkl')
+            preprocessor_path = os.path.join(BASE_DIR, 'artifacts', 'preprocessor.pkl')
             model = load_obj(file_path = model_path)
             preprocessor = load_obj(file_path = preprocessor_path)
             data_scaled = preprocessor.transform(features)
@@ -35,8 +37,8 @@ class CustomData:
             parental_level_of_education:str,
             lunch:str,
             test_preparation_course:str,
-            reading_score:str,
-            writing_score:str
+            reading_score:float,
+            writing_score:float
     ):
         self.gender = gender
         self.race_ethnicity = race_ethnicity
@@ -60,4 +62,6 @@ class CustomData:
 
             return pd.DataFrame(custom_data_input_dict)
         except Exception as e:
+            print(f"Prediction failed: {str(e)}")
+            traceback.print_exc()
             raise CustomException(e, sys)

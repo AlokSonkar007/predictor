@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
 import numpy as np
 import pandas as pd
+import os
 
 from sklearn.preprocessing import StandardScaler
 
@@ -42,4 +43,5 @@ def predict_datapoint():
         return redirect(url_for('predict_datapoint'))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
