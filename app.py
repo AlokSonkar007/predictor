@@ -37,9 +37,10 @@ def predict_datapoint():
         
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
+        result = round(float(results[0]), 2)
         
         # Store the result in a flash message and redirect to the GET page
-        flash(f"Predicted Math Score: {results[0]}", "result")
+        flash(f"Predicted Math Score: {result}", "result")
         return redirect(url_for('predict_datapoint'))
 
 if __name__ == "__main__":
