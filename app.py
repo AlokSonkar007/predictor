@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template
 import numpy as np
 import pandas as pd
 import os
@@ -10,9 +10,6 @@ from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 application = Flask(__name__)
 app = application
 
-# Flask needs a secret key to use flash messages
-app.secret_key = 'my_super_secret_key_123' 
-
 # Route for Home Page
 @app.route('/')
 def index():
@@ -21,7 +18,7 @@ def index():
 @app.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
-        return render_template('home.html')
+        return render_template('home.html', form_data={})
     else:
         data = CustomData(
             gender=request.form.get('gender'),
@@ -38,9 +35,7 @@ def predict_datapoint():
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
         
-        # Store the result in a flash message and redirect to the GET page
-        flash(f"Predicted Math Score: {results[0]}", "result")
-        return redirect(url_for('predict_datapoint'))
+        return render_template('home.html', results=results[0], form_data=request.form)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))

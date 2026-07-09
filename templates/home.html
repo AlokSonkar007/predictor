@@ -14,78 +14,71 @@
             <div class="form-group">
                 <label>Gender</label>
                 <select name="gender" required>
-                    <option value="" disabled selected>Select your gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="" disabled {% if not form_data.get('gender') %}selected{% endif %}>Select your gender</option>
+                    <option value="male" {% if form_data.get('gender') == 'male' %}selected{% endif %}>Male</option>
+                    <option value="female" {% if form_data.get('gender') == 'female' %}selected{% endif %}>Female</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Race or Ethnicity</label>
                 <select name="race_ethnicity" required>
-                    <option value="" disabled selected>Select ethnicity</option>
-                    <option value="group A">Group A</option>
-                    <option value="group B">Group B</option>
-                    <option value="group C">Group C</option>
-                    <option value="group D">Group D</option>
-                    <option value="group E">Group E</option>
+                    <option value="" disabled {% if not form_data.get('race_ethnicity') %}selected{% endif %}>Select ethnicity</option>
+                    <option value="group A" {% if form_data.get('race_ethnicity') == 'group A' %}selected{% endif %}>Group A</option>
+                    <option value="group B" {% if form_data.get('race_ethnicity') == 'group B' %}selected{% endif %}>Group B</option>
+                    <option value="group C" {% if form_data.get('race_ethnicity') == 'group C' %}selected{% endif %}>Group C</option>
+                    <option value="group D" {% if form_data.get('race_ethnicity') == 'group D' %}selected{% endif %}>Group D</option>
+                    <option value="group E" {% if form_data.get('race_ethnicity') == 'group E' %}selected{% endif %}>Group E</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Parental Level of Education</label>
                 <select name="parental_level_of_education" required>
-                    <option value="" disabled selected>Select parent education</option>
-                    <option value="associate's degree">associate's degree</option>
-                    <option value="bachelor's degree">bachelor's degree</option>
-                    <option value="high school">high school</option>
-                    <option value="master's degree">master's degree</option>
-                    <option value="some college">some college</option>
-                    <option value="some high school">some high school</option>
+                    <option value="" disabled {% if not form_data.get('parental_level_of_education') %}selected{% endif %}>Select parent education</option>
+                    <option value="associate's degree" {% if form_data.get('parental_level_of_education') == "associate's degree" %}selected{% endif %}>associate's degree</option>
+                    <option value="bachelor's degree" {% if form_data.get('parental_level_of_education') == "bachelor's degree" %}selected{% endif %}>bachelor's degree</option>
+                    <option value="high school" {% if form_data.get('parental_level_of_education') == 'high school' %}selected{% endif %}>high school</option>
+                    <option value="master's degree" {% if form_data.get('parental_level_of_education') == "master's degree" %}selected{% endif %}>master's degree</option>
+                    <option value="some college" {% if form_data.get('parental_level_of_education') == 'some college' %}selected{% endif %}>some college</option>
+                    <option value="some high school" {% if form_data.get('parental_level_of_education') == 'some high school' %}selected{% endif %}>some high school</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Lunch Type</label>
                 <select name="lunch" required>
-                    <option value="" disabled selected>Select lunch type</option>
-                    <option value="free/reduced">free/reduced</option>
-                    <option value="standard">standard</option>
+                    <option value="" disabled {% if not form_data.get('lunch') %}selected{% endif %}>Select lunch type</option>
+                    <option value="free/reduced" {% if form_data.get('lunch') == 'free/reduced' %}selected{% endif %}>free/reduced</option>
+                    <option value="standard" {% if form_data.get('lunch') == 'standard' %}selected{% endif %}>standard</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Test Preparation Course</label>
                 <select name="test_preparation_course" required>
-                    <option value="" disabled selected>Select course status</option>
-                    <option value="none">none</option>
-                    <option value="completed">completed</option>
+                    <option value="" disabled {% if not form_data.get('test_preparation_course') %}selected{% endif %}>Select course status</option>
+                    <option value="none" {% if form_data.get('test_preparation_course') == 'none' %}selected{% endif %}>none</option>
+                    <option value="completed" {% if form_data.get('test_preparation_course') == 'completed' %}selected{% endif %}>completed</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Reading Score (out of 100)</label>
-                <input type="number" name="reading_score" min="0" max="100" placeholder="e.g. 85" required>
+                <input type="number" name="reading_score" min="0" max="100" placeholder="e.g. 85" value="{{ form_data.get('reading_score', '') }}" required>
             </div>
 
             <div class="form-group">
                 <label>Writing Score (out of 100)</label>
-                <input type="number" name="writing_score" min="0" max="100" placeholder="e.g. 80" required>
+                <input type="number" name="writing_score" min="0" max="100" placeholder="e.g. 80" value="{{ form_data.get('writing_score', '') }}" required>
             </div>
 
             <button type="submit" class="btn">Predict Score</button>
         </form>
 
-        <!-- This block checks for the flash message and displays it -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="result-box">
-                    {% for category, message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
+        {% if results is defined %}
+            <div class="result-box">Predicted Math Score: {{ results }}</div>
+        {% endif %}
     </div>
 </body>
 </html>
